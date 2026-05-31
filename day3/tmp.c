@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main()
 {
@@ -9,12 +10,18 @@ int main()
     int i = 0;
     int j = 0;
 
+    int center = size-1;
+
+    int d_i = 0;
+    int d_j = 0;
+
     while(i < real_size)
     {
         j = 0;
         while(j<real_size)
         {
-            if(i == 0 || i == real_size-1 || j == 0 || j == real_size-1 || i == j || i + j == real_size-1)
+            
+            if(abs(center - i) + abs(center - j) == size-1)
                 printf("*");
             else
                 printf(" ");

@@ -1,22 +1,37 @@
 #include <stdio.h>
 
-void swap(int *a, int *b)
+int	is_palindrome(char *s);
+
+int	main(void)
 {
-    int tmp = *a; //a의 값을 보관
-    *a = *b; //a의 값을 b의 값으로 변경
-    *b = tmp; //b의 값을 저장되어있던 a의 값으로 변경
+	char	a[] = "level";
+	char	b[] = "hello";
+	char	c[] = "42024";
+
+	printf("\"level\" → %s\n", is_palindrome(a) ? "회문" : "회문 아님");
+	printf("\"hello\" → %s\n", is_palindrome(b) ? "회문" : "회문 아님");
+	printf("\"42024\" → %s\n", is_palindrome(c) ? "회문" : "회문 아님");
+	return (0);
 }
 
+int	is_palindrome(char *s)
+{
+	int	left;
+	int	right;
 
-int main(void) {
-    /*
-        int a = 5, b = 999;
-    swap(&a, &b);
-    printf("%d %d\n", a,b);
+	left = 0;
+	right = 0;
 
-    return 0;
-    */
-    int *tmp = NULL;
-
-    printf("%p\n", tmp);
+	while (s[right])
+		right++;
+	right--;
+	
+	while (left < right)
+	{
+		if (s[left] != s[right])
+			return (0);
+		left++;
+		right--;
+	}
+	return (1);
 }

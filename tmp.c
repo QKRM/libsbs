@@ -1,37 +1,80 @@
 #include <stdio.h>
+#include <string.h>
 
-int	is_palindrome(char *s);
+typedef struct s_student
+{
+	char	name[20];
+	int		age;
+	int		score;
+}	t_student;
+
+double		average(t_student *arr, int size);
+t_student	*find_top(t_student *arr, int size);
+t_student	*find_low(t_student *arr, int size);
 
 int	main(void)
 {
-	char	a[] = "level";
-	char	b[] = "hello";
-	char	c[] = "42024";
+	t_student	class[5] = {
+		{"Kim", 20, 95},
+		{"Lee", 21, 88},
+		{"Park", 22, 70},
+		{"Choi", 20, 85},
+		{"Jung", 23, 85}
+	};
+	t_student	*top;
+	t_student	*low;
 
-	printf("\"level\" → %s\n", is_palindrome(a) ? "회문" : "회문 아님");
-	printf("\"hello\" → %s\n", is_palindrome(b) ? "회문" : "회문 아님");
-	printf("\"42024\" → %s\n", is_palindrome(c) ? "회문" : "회문 아님");
+	top = find_top(class, 5);
+	low = find_low(class, 5);
+	printf("평균: %.1f점\n", average(class, 5));
+	printf("최고: %s (%d점)\n", top->name, top->score);
+	printf("최저: %s (%d점)\n", low->name, low->score);
 	return (0);
 }
 
-int	is_palindrome(char *s)
+double	average(t_student *arr, int size)
 {
-	int	left;
-	int	right;
+	int	sum;
+	int	i;
 
-	left = 0;
-	right = 0;
-
-	while (s[right])
-		right++;
-	right--;
-	
-	while (left < right)
+	sum = 0;
+	i = 0;
+	while (i < size)
 	{
-		if (s[left] != s[right])
-			return (0);
-		left++;
-		right--;
+		sum += arr[i].score;
+		i++;
 	}
-	return (1);
+	return ((double)sum / size);
+}
+
+t_student	*find_top(const t_student *arr, int size)
+{
+	t_student	*top;
+	int			i;
+
+	top = &arr[0];
+	i = 1;
+	while (i < size)
+	{
+		if (arr[i].score > top->score)
+			top = &arr[i];
+		i++;
+	}
+	return (top);
+}
+
+t_student	*find_low(t_student *arr, int size)
+{
+	t_student	*low;
+	int			i;
+
+	low = &arr[0];
+	i = 1;
+	while (i < size)
+	{
+		if (arr[i].score < low->score)
+			low = &arr[i];
+		i++;
+	}
+	return (low);
 }
